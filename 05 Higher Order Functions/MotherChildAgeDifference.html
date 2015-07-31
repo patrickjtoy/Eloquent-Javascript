@@ -62,11 +62,12 @@
             return anotherPerson.born - onePerson.born;
         }
 
-        // Map each person by name
+        // Extract mothers from the ancestry data
         var mothers = ancestry.filter(function(person) {
             return names.indexOf(person.mother) > -1;
         });
 
+        // Map each person by name
         ancestry.forEach(function(person) {
             byName[person.name] = person;
         });
