@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Deep Equal</title>
+    </head>
+    <body>
+
+    </body>
+    <script type="text/javascript">
+        function objectLength(object) {
+            return Object.keys(object).length;
+        }
+
+        function deepEqual(oneValue, anotherValue) {
+            var oneValueLength;
+            var index;
+
+            if (typeof oneValue === 'object' && oneValue !== null &&
+                typeof anotherValue === 'object' && anotherValue !== null) {
+                    oneValueLength = objectLength(oneValue);
+                    if (oneValueLength !== objectLength(anotherValue)) {
+                        return false;
+                    } else {
+                        index = oneValueLength;
+                        for (prop in oneValue) {
+                            if (!anotherValue.hasOwnProperty(prop)) {
+                                return false;
+                            } else {
+                                if (!deepEqual(oneValue[prop], anotherValue[prop])) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+            } else {
+                return oneValue === anotherValue;
+            }
+        }
+
+        var obj = {here: {is: "an"}, object: 2};
+        console.log(deepEqual(obj, obj));
+        // → true
+        console.log(deepEqual(obj, {here: 1, object: 2}));
+        // → false
+        console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+        // → true
+    </script>
+</html>
